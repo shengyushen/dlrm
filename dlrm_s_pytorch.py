@@ -268,7 +268,10 @@ class DLRM_Net(nn.Module):
             # The embeddings are represented as tall matrices, with sum
             # happening vertically across 0 axis, resulting in a row vector
             E = emb_l[k]
-            # SSY these two index are quotion and remainder?
+            # SSY these two index are index and offset
+            # offset is used as the starting position in embedding bag
+            # while index will be bloken into quotion and remainder
+            # SSY tricks/qr_embedding_bag.py
             V = E(sparse_index_group_batch, sparse_offset_group_batch)
 
             ly.append(V)

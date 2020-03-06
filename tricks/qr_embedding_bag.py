@@ -160,6 +160,8 @@ class QREmbeddingBag(nn.Module):
         input_q = (input / self.num_collisions).long()
         input_r = torch.remainder(input, self.num_collisions).long()
         # weight_q and weight_r are the real table
+        # SSY offset is used as starting position of emb bag
+        # while index is used as the list of position to be summed
         embed_q = F.embedding_bag(input_q, self.weight_q, offsets, self.max_norm,
                                   self.norm_type, self.scale_grad_by_freq, self.mode,
                                   self.sparse, per_sample_weights)
