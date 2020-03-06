@@ -144,6 +144,7 @@ class QREmbeddingBag(nn.Module):
                 'Shape of weight for quotient table does not match num_embeddings and embedding_dim'
             assert list(_weight[1].shape) == [self.num_embeddings[1], self.embedding_dim[1]], \
                 'Shape of weight for remainder table does not match num_embeddings and embedding_dim'
+            # SSY seems the real weight 
             self.weight_q = Parameter(_weight[0])
             self.weight_r = Parameter(_weight[1])
         self.mode = mode
@@ -154,16 +155,18 @@ class QREmbeddingBag(nn.Module):
         nn.init.uniform_(self.weight_r, np.sqrt(1 / self.num_categories))
 
     def forward(self, input, offsets=None, per_sample_weights=None):
+        # SSY directly mode on num_collisions
+        # input and input_q and input_r are all tensor
         input_q = (input / self.num_collisions).long()
         input_r = torch.remainder(input, self.num_collisions).long()
-
+        # weight_q and weight_r are the real table
         embed_q = F.embedding_bag(input_q, self.weight_q, offsets, self.max_norm,
                                   self.norm_type, self.scale_grad_by_freq, self.mode,
                                   self.sparse, per_sample_weights)
         embed_r = F.embedding_bag(input_r, self.weight_r, offsets, self.max_norm,
                                   self.norm_type, self.scale_grad_by_freq, self.mode,
                                   self.sparse, per_sample_weights)
-
+        # SSY reducing acrossing input dim
         if self.operation == 'concat':
             embed = torch.cat((embed_q, embed_r), dim=1)
         elif self.operation == 'add':

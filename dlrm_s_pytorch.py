@@ -137,16 +137,26 @@ class DLRM_Net(nn.Module):
         return torch.nn.Sequential(*layers)
 
     def create_emb(self, m, ln):
+        # SSY meaning of m and ln according to README.md
+        # m is embedding table dimension
+        # ln is list of  embedding tables' num_categories 
         emb_l = nn.ModuleList()
         for i in range(0, ln.size):
+            # SSY iterate through the embedding tables
             n = ln[i]
             # construct embedding operator
             if self.qr_flag and n > self.qr_threshold:
+                # SSY tricks/qr_embedding_bag.py
+                # standard qr emb use element wise product to combine Q and R emb look up result, but this seems to use sum 
+                # qr_operation are for two table reduction
+                # while mode is for multi index reduction
                 EE = QREmbeddingBag(n, m, self.qr_collisions,
                     operation=self.qr_operation, mode="sum", sparse=True)
             elif self.md_flag and n > self.md_threshold:
                 _m = m[i]
                 base = max(m)
+                # SSY tricks/md_embedding_bag.py
+                # this is actually mix dim embedding that use more dim for popular items
                 EE = PrEmbeddingBag(n, _m, base)
                 # use np initialization as below for consistency...
                 W = np.random.uniform(
@@ -224,8 +234,11 @@ class DLRM_Net(nn.Module):
                 self.md_threshold = md_threshold
             # create operators
             if ndevices <= 1:
+                # SSY 1 embedding tables
                 self.emb_l = self.create_emb(m_spa, ln_emb)
+            # SSY 2 the dense FC
             self.bot_l = self.create_mlp(ln_bot, sigmoid_bot)
+            # SSY 3 the top FC
             self.top_l = self.create_mlp(ln_top, sigmoid_top)
 
     def apply_mlp(self, x, layers):
@@ -246,6 +259,8 @@ class DLRM_Net(nn.Module):
 
         ly = []
         for k, sparse_index_group_batch in enumerate(lS_i):
+            # SSY lS_o is actually the offset
+            # lS_i and lS_o is actually <k,index> offset
             sparse_offset_group_batch = lS_o[k]
 
             # embedding lookup
@@ -253,6 +268,7 @@ class DLRM_Net(nn.Module):
             # The embeddings are represented as tall matrices, with sum
             # happening vertically across 0 axis, resulting in a row vector
             E = emb_l[k]
+            # SSY these two index are quotion and remainder?
             V = E(sparse_index_group_batch, sparse_offset_group_batch)
 
             ly.append(V)
@@ -296,6 +312,7 @@ class DLRM_Net(nn.Module):
 
     def forward(self, dense_x, lS_o, lS_i):
         if self.ndevices <= 1:
+            # it have different path for sequential and parallel case?
             return self.sequential_forward(dense_x, lS_o, lS_i)
         else:
             return self.parallel_forward(dense_x, lS_o, lS_i)
@@ -552,7 +569,8 @@ if __name__ == "__main__":
     ln_bot = np.fromstring(args.arch_mlp_bot, dtype=int, sep="-")
     # input data
     if (args.data_generation == "dataset"):
-
+        # SSY dlrm_data_pytorch.py
+        # train_data and train loader
         train_data, train_ld, test_data, test_ld = \
             dp.make_criteo_data_and_loaders(args)
         nbatches = args.num_batches if args.num_batches > 0 else len(train_ld)
@@ -763,10 +781,12 @@ if __name__ == "__main__":
         if use_gpu:  # .cuda()
             # lS_i can be either a list of tensors or a stacked tensor.
             # Handle each case below:
+            # SSY transfer to gpu
             lS_i = [S_i.to(device) for S_i in lS_i] if isinstance(lS_i, list) \
                 else lS_i.to(device)
             lS_o = [S_o.to(device) for S_o in lS_o] if isinstance(lS_o, list) \
                 else lS_o.to(device)
+            # SSY the actual dlrm
             return dlrm(
                 X.to(device),
                 lS_o,
@@ -870,7 +890,8 @@ if __name__ == "__main__":
 
             if args.mlperf_logging:
                 previous_iteration_time = None
-
+            # SSY all the input data from data set
+            # X is dense 
             for j, (X, lS_o, lS_i, T) in enumerate(train_ld):
                 if args.mlperf_logging:
                     current_time = time_wrap(use_gpu)
