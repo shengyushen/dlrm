@@ -66,6 +66,10 @@ import dlrm_data_pytorch as dp
 # numpy
 import numpy as np
 
+import torch
+from torch import nn
+from torchviz import make_dot, make_dot_from_trace
+
 # onnx
 # The onnx import causes deprecation warnings every time workers
 # are spawned during testing. So, we filter out those warnings.
@@ -140,6 +144,7 @@ class DLRM_Net(nn.Module):
         # SSY meaning of m and ln according to README.md
         # m is embedding table dimension
         # ln is list of  embedding tables' num_categories 
+        print("create_emb m {} ln {}".format(m,ln))
         emb_l = nn.ModuleList()
         for i in range(0, ln.size):
             # SSY iterate through the embedding tables
@@ -150,6 +155,7 @@ class DLRM_Net(nn.Module):
                 # standard qr emb use element wise product to combine Q and R emb look up result, but this seems to use sum 
                 # qr_operation are for two table reduction
                 # while mode is for multi index reduction
+                print("QR embedding n {} m {}")
                 EE = QREmbeddingBag(n, m, self.qr_collisions,
                     operation=self.qr_operation, mode="sum", sparse=True)
             elif self.md_flag and n > self.md_threshold:
@@ -157,6 +163,7 @@ class DLRM_Net(nn.Module):
                 base = max(m)
                 # SSY tricks/md_embedding_bag.py
                 # this is actually mix dim embedding that use more dim for popular items
+                print("md embedding n {} _m {}".format(n,_m))
                 EE = PrEmbeddingBag(n, _m, base)
                 # use np initialization as below for consistency...
                 W = np.random.uniform(
@@ -165,6 +172,7 @@ class DLRM_Net(nn.Module):
                 EE.embs.weight.data = torch.tensor(W, requires_grad=True)
 
             else:
+                print("normal embedding n {} m {}".format(n,m))
                 EE = nn.EmbeddingBag(n, m, mode="sum", sparse=True)
 
                 # initialize embeddings
@@ -225,6 +233,7 @@ class DLRM_Net(nn.Module):
             # create variables for QR embedding if applicable
             self.qr_flag = qr_flag
             if self.qr_flag:
+                # SSY
                 self.qr_collisions = qr_collisions
                 self.qr_operation = qr_operation
                 self.qr_threshold = qr_threshold
@@ -258,6 +267,11 @@ class DLRM_Net(nn.Module):
         # 3. for a list of embedding tables there is a list of batched lookups
 
         ly = []
+        #SSY
+        #print("lS_i")
+        #print(lS_i.size())
+        #print("lS_o")
+        #print(lS_o.size())
         for k, sparse_index_group_batch in enumerate(lS_i):
             # SSY lS_o is actually the offset
             # lS_i and lS_o is actually <k,index> offset
@@ -271,10 +285,17 @@ class DLRM_Net(nn.Module):
             # SSY these two index are index and offset
             # offset is used as the starting position in embedding bag
             # while index will be bloken into quotion and remainder
-            # SSY tricks/qr_embedding_bag.py
+            # SSY I am using embeddingbag defined in /root/ssy/pytorch/torch/nn/modules/sparse.py
+            # these two are all batch size
+            #print("sparse_index_group_batch {}".format(sparse_index_group_batch.size()))
+            #print("sparse_offset_group_batch {}".format(sparse_offset_group_batch.size()))
             V = E(sparse_index_group_batch, sparse_offset_group_batch)
+            # V is of size [batchsize,emb_feature_vec_size]
+            #print("V {}".format(V.size()))
 
             ly.append(V)
+            #print("k {} ".format(k))
+            #print(V.size())
 
         # print(ly)
         return ly
@@ -316,8 +337,11 @@ class DLRM_Net(nn.Module):
     def forward(self, dense_x, lS_o, lS_i):
         if self.ndevices <= 1:
             # it have different path for sequential and parallel case?
+            # SSY default case
+            #print("sequential_forward")
             return self.sequential_forward(dense_x, lS_o, lS_i)
         else:
+            #print("parallel_forward")
             return self.parallel_forward(dense_x, lS_o, lS_i)
 
     def sequential_forward(self, dense_x, lS_o, lS_i):
@@ -757,6 +781,7 @@ if __name__ == "__main__":
         # the embeddings are distributed and use model parallelism
         dlrm = dlrm.to(device)  # .cuda()
         if dlrm.ndevices > 1:
+            # SSY create emb again for gpu
             dlrm.emb_l = dlrm.create_emb(m_spa, ln_emb)
 
     # specify the loss function
@@ -888,6 +913,7 @@ if __name__ == "__main__":
 
     print("time/loss/accuracy (if enabled):")
     with torch.autograd.profiler.profile(args.enable_profiling, use_gpu) as prof:
+        # SSY 1 epoch means all data
         while k < args.nepochs:
             accum_time_begin = time_wrap(use_gpu)
 
@@ -991,6 +1017,8 @@ if __name__ == "__main__":
                     # .format(time_wrap(use_gpu) - accum_time_begin))
                     total_iter = 0
                     total_samp = 0
+                    # SSY 
+                    break
 
                 # testing
                 if should_test and not args.inference_only:
@@ -1182,14 +1210,14 @@ if __name__ == "__main__":
 
     # plot compute graph
     if args.plot_compute_graph:
-        sys.exit(
-            "ERROR: Please install pytorchviz package in order to use the"
-            + " visualization. Then, uncomment its import above as well as"
-            + " three lines below and run the code again."
-        )
-        # V = Z.mean() if args.inference_only else E
-        # dot = make_dot(V, params=dict(dlrm.named_parameters()))
-        # dot.render('dlrm_s_pytorch_graph') # write .pdf file
+        #sys.exit(
+        #    "ERROR: Please install pytorchviz package in order to use the"
+        #    + " visualization. Then, uncomment its import above as well as"
+        #    + " three lines below and run the code again."
+        #)
+        V = Z.mean() if args.inference_only else E
+        dot = make_dot(V, params=dict(dlrm.named_parameters()))
+        dot.render('dlrm_s_pytorch_graph') # write .pdf file
 
     # test prints
     if not args.inference_only and args.debug_mode:
