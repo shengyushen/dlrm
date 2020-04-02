@@ -173,6 +173,8 @@ class DLRM_Net(nn.Module):
 
             else:
                 print("normal embedding n {} m {}".format(n,m))
+                # SSY /root/ssy/pytorch/torch/nn/modules/sparse.py
+                # this sparse means sparse gradient to reduce communication, not sparse embedding table
                 EE = nn.EmbeddingBag(n, m, mode="sum", sparse=True)
 
                 # initialize embeddings
@@ -771,7 +773,10 @@ if __name__ == "__main__":
     # test prints
     if args.debug_mode:
         print("initial parameters (weights and bias):")
-        for param in dlrm.parameters():
+        #for param in dlrm.parameters():
+        # SSY print name
+        for nm , param in dlrm.named_parameters():
+            print(nm)
             print(param.detach().cpu().numpy())
         # print(dlrm)
 
@@ -1222,7 +1227,8 @@ if __name__ == "__main__":
     # test prints
     if not args.inference_only and args.debug_mode:
         print("updated parameters (weights and bias):")
-        for param in dlrm.parameters():
+        for nm, param in dlrm.named_parameters():
+            print(nm)
             print(param.detach().cpu().numpy())
 
     # export the model in onnx
