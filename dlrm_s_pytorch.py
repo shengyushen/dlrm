@@ -90,6 +90,7 @@ from tricks.qr_embedding_bag import QREmbeddingBag
 from tricks.md_embedding_bag import PrEmbeddingBag, md_solver
 
 import sklearn.metrics
+import timeit
 
 # from torchviz import make_dot
 # import torch.nn.functional as Functional
@@ -308,6 +309,7 @@ class DLRM_Net(nn.Module):
             (batch_size, d) = x.shape
             T = torch.cat([x] + ly, dim=1).view((batch_size, -1, d))
             # perform a dot product
+            # SSY transpose dot product
             Z = torch.bmm(T, torch.transpose(T, 1, 2))
             # append dense feature with the interactions (into a row vector)
             # approach 1: all
@@ -354,7 +356,13 @@ class DLRM_Net(nn.Module):
         # print(x.detach().cpu().numpy())
 
         # process sparse features(using embeddings), resulting in a list of row vectors
+        #with torch.autograd.profiler.profile(use_cuda=True) as prof:
+        #with torch.autograd.profiler.profile(use_cuda=False) as prof:
+        start = timeit.default_timer()
         ly = self.apply_emb(lS_o, lS_i, self.emb_l)
+        stop = timeit.default_timer()
+        print("apply_emb time {}".format(stop-start))
+        #print(prof)
         # for y in ly:
         #     print(y.detach().cpu().numpy())
 
