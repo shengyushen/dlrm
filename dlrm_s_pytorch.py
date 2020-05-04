@@ -305,6 +305,7 @@ class DLRM_Net(nn.Module):
 
     def interact_features(self, x, ly):
         if self.arch_interaction_op == "dot":
+            print("interact_features dot")
             # concatenate dense and sparse features
             (batch_size, d) = x.shape
             T = torch.cat([x] + ly, dim=1).view((batch_size, -1, d))
@@ -327,6 +328,7 @@ class DLRM_Net(nn.Module):
             # concatenate dense features and interactions
             R = torch.cat([x] + [Zflat], dim=1)
         elif self.arch_interaction_op == "cat":
+            print("interact_features cat")
             # concatenation features (into a row vector)
             R = torch.cat([x] + ly, dim=1)
         else:
@@ -367,11 +369,17 @@ class DLRM_Net(nn.Module):
         #     print(y.detach().cpu().numpy())
 
         # interact features (dense and sparse)
+        start = timeit.default_timer()
         z = self.interact_features(x, ly)
+        stop = timeit.default_timer()
+        print("interact_features time {}".format(stop-start))
         # print(z.detach().cpu().numpy())
 
         # obtain probability of a click (using top mlp)
+        start = timeit.default_timer()
         p = self.apply_mlp(z, self.top_l)
+        stop = timeit.default_timer()
+        print("apply_mlp time {}".format(stop-start))
 
         # clamp output if needed
         if 0.0 < self.loss_threshold and self.loss_threshold < 1.0:
