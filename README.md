@@ -1,3 +1,8 @@
+runtime of emb lookup, feature interaction and mlp:
+
+<img src="https://github.com/shengyushen/dlrm/blob/master/dlrm.png">
+
+
 Deep Learning Recommendation Model for Personalization and Recommendation Systems:
 =================================================================================
 *Copyright (c) Facebook, Inc. and its affiliates.*
