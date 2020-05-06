@@ -143,8 +143,8 @@ class DLRM_Net(nn.Module):
 
     def create_emb(self, m, ln):
         # SSY meaning of m and ln according to README.md
-        # m is embedding table dimension
-        # ln is list of  embedding tables' num_categories 
+        # m is embedding table dimension, or feature vector size, or width of each embedding table, normally 16
+        # ln is list of  embedding tables num_categories , normally the length of each table
         print("create_emb m {} ln {}".format(m,ln))
         emb_l = nn.ModuleList()
         for i in range(0, ln.size):
