@@ -1,0 +1,555 @@
+Using CPU...
+Reading pre-processed data=./input/kaggleAdDisplayChallenge_processed.npz
+Sparse fea = 26, Dense fea = 13
+Defined train indices...
+Randomized indices across days ...
+Split data according to indices...
+Reading pre-processed data=./input/kaggleAdDisplayChallenge_processed.npz
+Sparse fea = 26, Dense fea = 13
+Defined test indices...
+Randomized indices across days ...
+Split data according to indices...
+create_emb m 16 ln [    1460      583 10131227  2202608      305       24    12517      633
+        3    93145     5683  8351593     3194       27    14992  5461306
+       10     5652     2173        4  7046547       18       15   286181
+      105   142572]
+normal embedding n 1460 m 16
+normal embedding n 583 m 16
+normal embedding n 10131227 m 16
+normal embedding n 2202608 m 16
+normal embedding n 305 m 16
+normal embedding n 24 m 16
+normal embedding n 12517 m 16
+normal embedding n 633 m 16
+normal embedding n 3 m 16
+normal embedding n 93145 m 16
+normal embedding n 5683 m 16
+normal embedding n 8351593 m 16
+normal embedding n 3194 m 16
+normal embedding n 27 m 16
+normal embedding n 14992 m 16
+normal embedding n 5461306 m 16
+normal embedding n 10 m 16
+normal embedding n 5652 m 16
+normal embedding n 2173 m 16
+normal embedding n 4 m 16
+normal embedding n 7046547 m 16
+normal embedding n 18 m 16
+normal embedding n 15 m 16
+normal embedding n 286181 m 16
+normal embedding n 105 m 16
+normal embedding n 142572 m 16
+time/loss/accuracy (if enabled):
+apply_emb time 0.0026175230741500854
+interact_features dot
+interact_features time 0.0025366772897541523
+apply_mlp time 0.002872899640351534
+apply_emb time 0.002493979874998331
+interact_features dot
+interact_features time 0.002816059160977602
+apply_mlp time 0.0026172902435064316
+apply_emb time 0.002149416133761406
+interact_features dot
+interact_features time 0.0010728412307798862
+apply_mlp time 0.0011735772714018822
+apply_emb time 0.002197630237787962
+interact_features dot
+interact_features time 0.0009017041884362698
+apply_mlp time 0.0013894401490688324
+apply_emb time 0.0026319576427340508
+interact_features dot
+interact_features time 0.0015413700602948666
+apply_mlp time 0.0008689840324223042
+apply_emb time 0.0023775435984134674
+interact_features dot
+interact_features time 0.0010038628242909908
+apply_mlp time 0.0010274183005094528
+apply_emb time 0.0018410300835967064
+interact_features dot
+interact_features time 0.0008178157731890678
+apply_mlp time 0.0009670299477875233
+apply_emb time 0.0018479363061487675
+interact_features dot
+interact_features time 0.0008054706268012524
+apply_mlp time 0.0006694979965686798
+apply_emb time 0.002301851287484169
+interact_features dot
+interact_features time 0.00102641386911273
+apply_mlp time 0.0008469233289361
+apply_emb time 0.002220321912318468
+interact_features dot
+interact_features time 0.0009969677776098251
+apply_mlp time 0.000824004877358675
+apply_emb time 0.0022252658382058144
+interact_features dot
+interact_features time 0.001232297159731388
+apply_mlp time 0.0008489810861647129
+apply_emb time 0.0017147497273981571
+interact_features dot
+interact_features time 0.0007463358342647552
+apply_mlp time 0.0006748000159859657
+apply_emb time 0.0017912411130964756
+interact_features dot
+interact_features time 0.0008409228175878525
+apply_mlp time 0.0007113572210073471
+apply_emb time 0.0021762140095233917
+interact_features dot
+interact_features time 0.0009328359737992287
+apply_mlp time 0.00077044777572155
+apply_emb time 0.0017656651325523853
+interact_features dot
+interact_features time 0.0008348580449819565
+apply_mlp time 0.0006632115691900253
+apply_emb time 0.002225011121481657
+interact_features dot
+interact_features time 0.0009117829613387585
+apply_mlp time 0.0007455130107700825
+apply_emb time 0.002302414271980524
+interact_features dot
+interact_features time 0.003061824943870306
+apply_mlp time 0.0007856679148972034
+apply_emb time 0.0020687077194452286
+interact_features dot
+interact_features time 0.0010145190171897411
+apply_mlp time 0.0008022678084671497
+apply_emb time 0.0021775206550955772
+interact_features dot
+interact_features time 0.001080020796507597
+apply_mlp time 0.0009586741216480732
+apply_emb time 0.0021439162082970142
+interact_features dot
+interact_features time 0.0009581041522324085
+apply_mlp time 0.0007571750320494175
+apply_emb time 0.002152790781110525
+interact_features dot
+interact_features time 0.000952661968767643
+apply_mlp time 0.0007350887171924114
+apply_emb time 0.0021212962456047535
+interact_features dot
+interact_features time 0.0010117460042238235
+apply_mlp time 0.000775572843849659
+apply_emb time 0.0021902318112552166
+interact_features dot
+interact_features time 0.0010417490266263485
+apply_mlp time 0.001156314741820097
+apply_emb time 0.0022137537598609924
+interact_features dot
+interact_features time 0.0010336441919207573
+apply_mlp time 0.0008114418014883995
+apply_emb time 0.002097609918564558
+interact_features dot
+interact_features time 0.0009332797490060329
+apply_mlp time 0.0007517300546169281
+apply_emb time 0.0022351150400936604
+interact_features dot
+interact_features time 0.001031567808240652
+apply_mlp time 0.0008701728656888008
+apply_emb time 0.0021214052103459835
+interact_features dot
+interact_features time 0.0009047547355294228
+apply_mlp time 0.0007414831779897213
+apply_emb time 0.002072066068649292
+interact_features dot
+interact_features time 0.000939647201448679
+apply_mlp time 0.0007322812452912331
+apply_emb time 0.0021605929359793663
+interact_features dot
+interact_features time 0.0009550428949296474
+apply_mlp time 0.000805943738669157
+apply_emb time 0.0021206000819802284
+interact_features dot
+interact_features time 0.0010061217471957207
+apply_mlp time 0.0008054710924625397
+apply_emb time 0.002103848848491907
+interact_features dot
+interact_features time 0.0010333149693906307
+apply_mlp time 0.0010067210532724857
+apply_emb time 0.002053614240139723
+interact_features dot
+interact_features time 0.0009360886178910732
+apply_mlp time 0.0006391769275069237
+apply_emb time 0.002271536272019148
+interact_features dot
+interact_features time 0.0010481979697942734
+apply_mlp time 0.00062567088752985
+apply_emb time 0.0020875269547104836
+interact_features dot
+interact_features time 0.0009346776641905308
+apply_mlp time 0.0027710646390914917
+apply_emb time 0.0022398396395146847
+interact_features dot
+interact_features time 0.0010561970993876457
+apply_mlp time 0.0008975411765277386
+apply_emb time 0.0021222559735178947
+interact_features dot
+interact_features time 0.000909420195966959
+apply_mlp time 0.0007051629945635796
+apply_emb time 0.0020922566764056683
+interact_features dot
+interact_features time 0.0008910847827792168
+apply_mlp time 0.0006884969770908356
+apply_emb time 0.0020732032135128975
+interact_features dot
+interact_features time 0.0009246543049812317
+apply_mlp time 0.0012804358266294003
+apply_emb time 0.0021120309829711914
+interact_features dot
+interact_features time 0.0009116018190979958
+apply_mlp time 0.0008385768160223961
+apply_emb time 0.0020752917043864727
+interact_features dot
+interact_features time 0.0009222370572388172
+apply_mlp time 0.0008865850977599621
+apply_emb time 0.0021123411133885384
+interact_features dot
+interact_features time 0.0009394288063049316
+apply_mlp time 0.0008402732200920582
+apply_emb time 0.00210054824128747
+interact_features dot
+interact_features time 0.0010479348711669445
+apply_mlp time 0.0010269428603351116
+apply_emb time 0.0020688287913799286
+interact_features dot
+interact_features time 0.0010305466130375862
+apply_mlp time 0.0007886807434260845
+apply_emb time 0.002185313031077385
+interact_features dot
+interact_features time 0.001129539217799902
+apply_mlp time 0.0008368189446628094
+apply_emb time 0.0017835129983723164
+interact_features dot
+interact_features time 0.0008855578489601612
+apply_mlp time 0.0007459479384124279
+apply_emb time 0.001730441115796566
+interact_features dot
+interact_features time 0.0007652579806745052
+apply_mlp time 0.0006175697781145573
+apply_emb time 0.002805501688271761
+interact_features dot
+interact_features time 0.0010713813826441765
+apply_mlp time 0.0006031999364495277
+apply_emb time 0.0028131860308349133
+interact_features dot
+interact_features time 0.0009304797276854515
+apply_mlp time 0.0005966643802821636
+apply_emb time 0.002586774993687868
+interact_features dot
+interact_features time 0.0009168023243546486
+apply_mlp time 0.0006174668669700623
+apply_emb time 0.0028927060775458813
+interact_features dot
+interact_features time 0.0009463359601795673
+apply_mlp time 0.0006283721886575222
+apply_emb time 0.0026674848049879074
+interact_features dot
+interact_features time 0.0008979109115898609
+apply_mlp time 0.0005814190953969955
+apply_emb time 0.0037163766101002693
+interact_features dot
+interact_features time 0.0009342003613710403
+apply_mlp time 0.000603754073381424
+apply_emb time 0.002705757971853018
+interact_features dot
+interact_features time 0.0009423196315765381
+apply_mlp time 0.0006163949146866798
+apply_emb time 0.002595977857708931
+interact_features dot
+interact_features time 0.0008492679335176945
+apply_mlp time 0.0005803699605166912
+apply_emb time 0.0031364192254841328
+interact_features dot
+interact_features time 0.0008522369898855686
+apply_mlp time 0.0007346910424530506
+apply_emb time 0.0029599741101264954
+interact_features dot
+interact_features time 0.0011061937548220158
+apply_mlp time 0.0006625009700655937
+apply_emb time 0.0032840650528669357
+interact_features dot
+interact_features time 0.000902038998901844
+apply_mlp time 0.0006140689365565777
+apply_emb time 0.003113608807325363
+interact_features dot
+interact_features time 0.0009130770340561867
+apply_mlp time 0.0005957833491265774
+apply_emb time 0.0029619489796459675
+interact_features dot
+interact_features time 0.0009103240445256233
+apply_mlp time 0.0005944781005382538
+apply_emb time 0.002800238784402609
+interact_features dot
+interact_features time 0.0008589993230998516
+apply_mlp time 0.0005811047740280628
+apply_emb time 0.0032476927153766155
+interact_features dot
+interact_features time 0.001159456092864275
+apply_mlp time 0.0006954800337553024
+apply_emb time 0.0030481298454105854
+interact_features dot
+interact_features time 0.0008335788734257221
+apply_mlp time 0.0007000057958066463
+apply_emb time 0.0030784159898757935
+interact_features dot
+interact_features time 0.0009016911499202251
+apply_mlp time 0.0006125187501311302
+apply_emb time 0.0027663027867674828
+interact_features dot
+interact_features time 0.0008174600079655647
+apply_mlp time 0.0005841702222824097
+apply_emb time 0.0033233663998544216
+interact_features dot
+interact_features time 0.000886118970811367
+apply_mlp time 0.0006086109206080437
+apply_emb time 0.0029100580140948296
+interact_features dot
+interact_features time 0.0010381853207945824
+apply_mlp time 0.0007236539386212826
+apply_emb time 0.003149911295622587
+interact_features dot
+interact_features time 0.0010689119808375835
+apply_mlp time 0.0006008860655128956
+apply_emb time 0.0028616017661988735
+interact_features dot
+interact_features time 0.0009513529948890209
+apply_mlp time 0.0005922871641814709
+apply_emb time 0.0029376568272709846
+interact_features dot
+interact_features time 0.000914605800062418
+apply_mlp time 0.0006137369200587273
+apply_emb time 0.0033572493121027946
+interact_features dot
+interact_features time 0.0008362219668924809
+apply_mlp time 0.0006132838316261768
+apply_emb time 0.003062931355088949
+interact_features dot
+interact_features time 0.0008519398979842663
+apply_mlp time 0.0006141439080238342
+apply_emb time 0.003245419356971979
+interact_features dot
+interact_features time 0.0026787719689309597
+apply_mlp time 0.0005883090198040009
+apply_emb time 0.003268918953835964
+interact_features dot
+interact_features time 0.000840489286929369
+apply_mlp time 0.0005690981633961201
+apply_emb time 0.00299034733325243
+interact_features dot
+interact_features time 0.0008466960862278938
+apply_mlp time 0.000583927147090435
+apply_emb time 0.0023951870389282703
+interact_features dot
+interact_features time 0.0008773119188845158
+apply_mlp time 0.0005828067660331726
+apply_emb time 0.003161831758916378
+interact_features dot
+interact_features time 0.0008905571885406971
+apply_mlp time 0.0005981582216918468
+apply_emb time 0.0033055339008569717
+interact_features dot
+interact_features time 0.0009560040198266506
+apply_mlp time 0.0005827243439853191
+apply_emb time 0.002453021239489317
+interact_features dot
+interact_features time 0.000870829913765192
+apply_mlp time 0.0005872249603271484
+apply_emb time 0.0031964220106601715
+interact_features dot
+interact_features time 0.0008526109158992767
+apply_mlp time 0.0006805076263844967
+apply_emb time 0.003491590265184641
+interact_features dot
+interact_features time 0.0008470769971609116
+apply_mlp time 0.0006556101143360138
+apply_emb time 0.0026174881495535374
+interact_features dot
+interact_features time 0.0008451850153505802
+apply_mlp time 0.0007101069204509258
+apply_emb time 0.0031024818308651447
+interact_features dot
+interact_features time 0.0009142588824033737
+apply_mlp time 0.0005924999713897705
+apply_emb time 0.0025647408328950405
+interact_features dot
+interact_features time 0.0008474718779325485
+apply_mlp time 0.0005961027927696705
+apply_emb time 0.0030988738872110844
+interact_features dot
+interact_features time 0.0008863350376486778
+apply_mlp time 0.0006192992441356182
+apply_emb time 0.0028752218931913376
+interact_features dot
+interact_features time 0.0009520081803202629
+apply_mlp time 0.0006227679550647736
+apply_emb time 0.002803887240588665
+interact_features dot
+interact_features time 0.0008550309576094151
+apply_mlp time 0.000590973999351263
+apply_emb time 0.002741884905844927
+interact_features dot
+interact_features time 0.0008861850947141647
+apply_mlp time 0.0006932378746569157
+apply_emb time 0.002994556911289692
+interact_features dot
+interact_features time 0.0010552620515227318
+apply_mlp time 0.0007384582422673702
+apply_emb time 0.002945580054074526
+interact_features dot
+interact_features time 0.0008552959188818932
+apply_mlp time 0.0006305142305791378
+apply_emb time 0.0024821357801556587
+interact_features dot
+interact_features time 0.000874627847224474
+apply_mlp time 0.000616591889411211
+apply_emb time 0.002624057698994875
+interact_features dot
+interact_features time 0.0009113671258091927
+apply_mlp time 0.0005961637943983078
+apply_emb time 0.0027599111199378967
+interact_features dot
+interact_features time 0.0008829552680253983
+apply_mlp time 0.0007394459098577499
+apply_emb time 0.0028404458425939083
+interact_features dot
+interact_features time 0.0009166747331619263
+apply_mlp time 0.0005980753339827061
+apply_emb time 0.0030488120391964912
+interact_features dot
+interact_features time 0.0008972277864813805
+apply_mlp time 0.0007281340658664703
+apply_emb time 0.002838880755007267
+interact_features dot
+interact_features time 0.0008736681193113327
+apply_mlp time 0.0006261011585593224
+apply_emb time 0.0033199889585375786
+interact_features dot
+interact_features time 0.0009138141758739948
+apply_mlp time 0.0006287768483161926
+apply_emb time 0.0029324167408049107
+interact_features dot
+interact_features time 0.0009087570942938328
+apply_mlp time 0.0006311209872364998
+apply_emb time 0.0031583402305841446
+interact_features dot
+interact_features time 0.0008484921418130398
+apply_mlp time 0.0006010932847857475
+apply_emb time 0.002593455370515585
+interact_features dot
+interact_features time 0.000895052682608366
+apply_mlp time 0.0005827932618558407
+apply_emb time 0.002174959983676672
+interact_features dot
+interact_features time 0.0010494310408830643
+apply_mlp time 0.0006684060208499432
+apply_emb time 0.003295126836746931
+interact_features dot
+interact_features time 0.0008875830098986626
+apply_mlp time 0.0007981080561876297
+apply_emb time 0.003493781201541424
+interact_features dot
+interact_features time 0.000986482948064804
+apply_mlp time 0.0007511032745242119
+apply_emb time 0.0038567902520298958
+interact_features dot
+interact_features time 0.0008982596918940544
+apply_mlp time 0.0005967789329588413
+apply_emb time 0.003962267190217972
+interact_features dot
+interact_features time 0.0009916843846440315
+apply_mlp time 0.001518032979220152
+apply_emb time 0.0026282998733222485
+interact_features dot
+interact_features time 0.0008462700061500072
+apply_mlp time 0.0005997130647301674
+apply_emb time 0.0027335607446730137
+interact_features dot
+interact_features time 0.000945650041103363
+apply_mlp time 0.0005937931127846241
+apply_emb time 0.002720498014241457
+interact_features dot
+interact_features time 0.0008791480213403702
+apply_mlp time 0.0009602545760571957
+apply_emb time 0.0029973206110298634
+interact_features dot
+interact_features time 0.0008651008829474449
+apply_mlp time 0.0005891709588468075
+apply_emb time 0.0030252570286393166
+interact_features dot
+interact_features time 0.0009156470187008381
+apply_mlp time 0.0005965610034763813
+apply_emb time 0.002692428883165121
+interact_features dot
+interact_features time 0.0009911013767123222
+apply_mlp time 0.0009518819861114025
+apply_emb time 0.002840984147042036
+interact_features dot
+interact_features time 0.0008866158314049244
+apply_mlp time 0.0006687180139124393
+apply_emb time 0.0028542173095047474
+interact_features dot
+interact_features time 0.0008727200329303741
+apply_mlp time 0.0006076437421143055
+apply_emb time 0.002890700940042734
+interact_features dot
+interact_features time 0.0008627530187368393
+apply_mlp time 0.0005887397564947605
+apply_emb time 0.003485382068902254
+interact_features dot
+interact_features time 0.000858440063893795
+apply_mlp time 0.000584704801440239
+apply_emb time 0.0024090157821774483
+interact_features dot
+interact_features time 0.0008197021670639515
+apply_mlp time 0.0005616322159767151
+apply_emb time 0.002685924991965294
+interact_features dot
+interact_features time 0.0008901539258658886
+apply_mlp time 0.0005552200600504875
+apply_emb time 0.002468436025083065
+interact_features dot
+interact_features time 0.0009622597135603428
+apply_mlp time 0.0006884909234941006
+apply_emb time 0.0030340077355504036
+interact_features dot
+interact_features time 0.0008437279611825943
+apply_mlp time 0.0005796900950372219
+apply_emb time 0.002906722016632557
+interact_features dot
+interact_features time 0.0008879615925252438
+apply_mlp time 0.0007814583368599415
+apply_emb time 0.0031025251373648643
+interact_features dot
+interact_features time 0.0009687831625342369
+apply_mlp time 0.0005678441375494003
+apply_emb time 0.0030726068653166294
+interact_features dot
+interact_features time 0.0008696159347891808
+apply_mlp time 0.0005895933136343956
+apply_emb time 0.0026432243175804615
+interact_features dot
+interact_features time 0.0008635539561510086
+apply_mlp time 0.0005756858736276627
+apply_emb time 0.002972444985061884
+interact_features dot
+interact_features time 0.0009042378515005112
+apply_mlp time 0.00061425706371665
+apply_emb time 0.00294708414003253
+interact_features dot
+interact_features time 0.0008594128303229809
+apply_mlp time 0.0006127879023551941
+apply_emb time 0.002997030969709158
+interact_features dot
+interact_features time 0.0008842148818075657
+apply_mlp time 0.0005869860760867596
+apply_emb time 0.0031915181316435337
+interact_features dot
+interact_features time 0.0008736453019082546
+apply_mlp time 0.0005890862084925175
+apply_emb time 0.002861988265067339
+interact_features dot
+interact_features time 0.0009161191992461681
+apply_mlp time 0.0005747620016336441
+apply_emb time 0.0028280606493353844
+interact_features dot
+interact_features time 0.0008960813283920288
+apply_mlp time 0.0006250590085983276
+Finished training it 128/153485 of epoch 0, 103.47 ms/it, loss 0.540284, accuracy 74.121 %
