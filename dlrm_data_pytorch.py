@@ -648,6 +648,8 @@ def make_random_data_and_loader(args, ln_emb, m_den):
     train_loader = torch.utils.data.DataLoader(
         train_data,
         batch_size=1,
+        # SSY change to None to use the mini_batch_size above in train_data
+        #batch_size=args.mini_batch_size,
         shuffle=False,
         num_workers=args.num_workers,
         collate_fn=collate_wrapper_random,

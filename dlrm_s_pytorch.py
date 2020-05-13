@@ -175,6 +175,7 @@ class DLRM_Net(nn.Module):
             else:
                 print("normal embedding n {} m {}".format(n,m))
                 # SSY /root/ssy/pytorch/torch/nn/modules/sparse.py
+                # SSY /opt/anaconda3/envs/torch1.5-gpu/lib/python3.6/site-packages/torch/nn/modules/sparse.py
                 # this sparse means sparse gradient to reduce communication, not sparse embedding table
                 EE = nn.EmbeddingBag(n, m, mode="sum", sparse=True)
 
@@ -272,9 +273,9 @@ class DLRM_Net(nn.Module):
         ly = []
         #SSY
         #print("lS_i")
-        #print(lS_i.size())
+        #print(len(lS_i))
         #print("lS_o")
-        #print(lS_o.size())
+        #print(len(lS_o))
         for k, sparse_index_group_batch in enumerate(lS_i):
             # SSY lS_o is actually the offset
             # lS_i and lS_o is actually <k,index> offset
@@ -943,6 +944,7 @@ if __name__ == "__main__":
             # SSY all the input data from data set
             # X is dense 
             for j, (X, lS_o, lS_i, T) in enumerate(train_ld):
+            # SSY : this determine the data batch
                 if args.mlperf_logging:
                     current_time = time_wrap(use_gpu)
                     if previous_iteration_time:
@@ -987,16 +989,25 @@ if __name__ == "__main__":
                 if not args.inference_only:
                     # scaled error gradient propagation
                     # (where we do not accumulate gradients across mini-batches)
+                    start = timeit.default_timer()
                     optimizer.zero_grad()
+                    stop = timeit.default_timer()
+                    print("zero_grad time {}".format(stop-start))
                     # backward pass
+                    start = timeit.default_timer()
                     E.backward()
+                    stop = timeit.default_timer()
+                    print("backward time {}".format(stop-start))
                     # debug prints (check gradient norm)
                     # for l in mlp.layers:
                     #     if hasattr(l, 'weight'):
                     #          print(l.weight.grad.norm().item())
 
                     # optimizer
+                    start = timeit.default_timer()
                     optimizer.step()
+                    stop = timeit.default_timer()
+                    print("optimizer time {}".format(stop-start))
 
                 if args.mlperf_logging:
                     total_time += iteration_time

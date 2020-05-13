@@ -64,6 +64,7 @@ class PrEmbeddingBag(nn.Module):
             num_embeddings, embedding_dim, mode="sum", sparse=True)
         torch.nn.init.xavier_uniform_(self.embs.weight)
         if embedding_dim < base_dim:
+            # SSY md emb have a mlp here
             self.proj = nn.Linear(embedding_dim, base_dim, bias=False)
             torch.nn.init.xavier_uniform_(self.proj.weight)
         elif embedding_dim == base_dim:
@@ -74,5 +75,6 @@ class PrEmbeddingBag(nn.Module):
             )
 
     def forward(self, input, offsets=None, per_sample_weights=None):
+        # SSY a fairly simple embeddingbag with a MLP
         return self.proj(self.embs(
             input, offsets=offsets, per_sample_weights=per_sample_weights))
