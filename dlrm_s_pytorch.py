@@ -353,7 +353,15 @@ class DLRM_Net(nn.Module):
 
     def sequential_forward(self, dense_x, lS_o, lS_i):
         # process dense features (using bottom mlp), resulting in a row vector
+        use_gpu = args.use_gpu and torch.cuda.is_available()
+        if use_gpu:
+          torch.cuda.synchronize()
+        start = timeit.default_timer()
         x = self.apply_mlp(dense_x, self.bot_l)
+        if use_gpu:
+          torch.cuda.synchronize()
+        stop = timeit.default_timer()
+        print("apply_bot time {}".format(stop-start))
         # debug prints
         # print("intermediate")
         # print(x.detach().cpu().numpy())
@@ -361,8 +369,12 @@ class DLRM_Net(nn.Module):
         # process sparse features(using embeddings), resulting in a list of row vectors
         #with torch.autograd.profiler.profile(use_cuda=True) as prof:
         #with torch.autograd.profiler.profile(use_cuda=False) as prof:
+        if use_gpu:
+          torch.cuda.synchronize()
         start = timeit.default_timer()
         ly = self.apply_emb(lS_o, lS_i, self.emb_l)
+        if use_gpu:
+          torch.cuda.synchronize()
         stop = timeit.default_timer()
         print("apply_emb time {}".format(stop-start))
         #print(prof)
@@ -370,17 +382,25 @@ class DLRM_Net(nn.Module):
         #     print(y.detach().cpu().numpy())
 
         # interact features (dense and sparse)
+        if use_gpu:
+          torch.cuda.synchronize()
         start = timeit.default_timer()
         z = self.interact_features(x, ly)
+        if use_gpu:
+          torch.cuda.synchronize()
         stop = timeit.default_timer()
         print("interact_features time {}".format(stop-start))
         # print(z.detach().cpu().numpy())
 
         # obtain probability of a click (using top mlp)
+        if use_gpu:
+          torch.cuda.synchronize()
         start = timeit.default_timer()
         p = self.apply_mlp(z, self.top_l)
+        if use_gpu:
+          torch.cuda.synchronize()
         stop = timeit.default_timer()
-        print("apply_mlp time {}".format(stop-start))
+        print("apply_top time {}".format(stop-start))
 
         # clamp output if needed
         if 0.0 < self.loss_threshold and self.loss_threshold < 1.0:
@@ -989,13 +1009,21 @@ if __name__ == "__main__":
                 if not args.inference_only:
                     # scaled error gradient propagation
                     # (where we do not accumulate gradients across mini-batches)
+                    if use_gpu:
+                      torch.cuda.synchronize()
                     start = timeit.default_timer()
                     optimizer.zero_grad()
+                    if use_gpu:
+                      torch.cuda.synchronize()
                     stop = timeit.default_timer()
                     print("zero_grad time {}".format(stop-start))
                     # backward pass
+                    if use_gpu:
+                      torch.cuda.synchronize()
                     start = timeit.default_timer()
                     E.backward()
+                    if use_gpu:
+                      torch.cuda.synchronize()
                     stop = timeit.default_timer()
                     print("backward time {}".format(stop-start))
                     # debug prints (check gradient norm)
@@ -1004,8 +1032,12 @@ if __name__ == "__main__":
                     #          print(l.weight.grad.norm().item())
 
                     # optimizer
+                    if use_gpu:
+                      torch.cuda.synchronize()
                     start = timeit.default_timer()
                     optimizer.step()
+                    if use_gpu:
+                      torch.cuda.synchronize()
                     stop = timeit.default_timer()
                     print("optimizer time {}".format(stop-start))
 
