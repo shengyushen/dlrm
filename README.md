@@ -1,3 +1,8 @@
+plt1.sh  : plot for a particular batchsize
+plt2.sh  : plot for training 
+plt3.sh  : plot for inference
+
+
 runtime of emb lookup, feature interaction and mlp:
 
 <img src="https://github.com/shengyushen/dlrm/blob/master/dlrm.png">
